@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pose1donz&#39;s Blog</title>
+    <link>https://pose1donz.github.io/</link>
+    <description>Recent content on Pose1donz&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 08 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pose1donz.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🙋🏻‍♂️关于</title>
+      <link>https://pose1donz.github.io/about/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/about/</guid>
+      <description>关于我 英文名: zah 职业: 学生 运动: 跑步、游戏</description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>https://pose1donz.github.io/posts/blog/blog/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/blog/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://pose1donz.github.io/posts/life/life/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/life/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Read</title>
+      <link>https://pose1donz.github.io/posts/read/read/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/read/read/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tech</title>
+      <link>https://pose1donz.github.io/posts/tech/tech/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/tech/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>🤝友链</title>
+      <link>https://pose1donz.github.io/links/</link>
+      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pose1donz.github.io/links/</guid>
+      <description>Pose1donz&amp;#39;s Blog 一个记录技术、阅读、生活的博客 👉友链格式 名称： Pose1donz&amp;rsquo;s Blog 网址： https://pose1donz.github.io/ 图标： https://www.sulvblog.cn/img/Q.gif 描述： 一个记录技术、阅读、生活的博客 👉友链申请要求 秉承互换友链原则、文章定期更新、不能有太多广告、个人描述字数控制在15字内</description>
+    </item>
+    
+    <item>
+      <title>Text</title>
+      <link>https://pose1donz.github.io/posts/tech/text/</link>
+      <pubDate>Mon, 07 Nov 2022 20:49:39 +0800</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/tech/text/</guid>
+      <description>holly</description>
+    </item>
+    
+    
+    
+  </channel>
+</rss>
