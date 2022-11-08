@@ -1,4 +1,4 @@
-baseURL: https://www.sulvblog.cn # 绑定的域名
+baseURL: https://pose1donz.github.io # 绑定的域名
 languageCode: zh-cn # en-us
 title: Pose1donz's Blog
 theme: hugo-PaperMod  # 主题名字，和themes文件夹下的一致
@@ -164,10 +164,10 @@ params:
     minMatchCharLength: 0
     keys: [ "title", "permalink", "summary" ]
 
-  StartYear: 2020 # 底部开始年份
-  FilingNo: 填写自己的备案号 # 底部备案号
-  PublicSecurityIconLink: 填自己的公安图标链接 # 填自己的公安图标链接,可用绝对路径，相对路径如 img/beian.png
-  PublicNetworkSecurity: 填自己的公网安备 # 底部公网安备号
+  StartYear: 2022 # 底部开始年份
+  #FilingNo: 填写自己的备案号 # 底部备案号
+ # PublicSecurityIconLink: 填自己的公安图标链接 # 填自己的公安图标链接,可用绝对路径，相对路径如 img/beian.png
+ # PublicNetworkSecurity: 填自己的公网安备 # 底部公网安备号
 
   Reward: true #打赏是否开启
   # 打赏微信图片地址，

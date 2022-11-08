@@ -1,8 +1,8 @@
 ---
 title: "Tech"
-date: 2022-05-05T00:17:58+08:00
-lastmod: 2022-05-05T00:17:58+08:00
-author: ["Sulv"]
+date: 2022-11-08
+lastmod: 2022-11-08
+author: ["Pose1donz"]
 keywords: 
 - 
 categories: 
@@ -27,7 +27,6 @@ cover:
     alt: ""
     relative: false
 ---
-
 
 
 
