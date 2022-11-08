@@ -14,7 +14,7 @@ showbreadcrumbs: false
 
 <div class="friend">
 
-{{< friend name="Sulv's Blog" url="https://www.sulvblog.cn" logo="https://www.sulvblog.cn/img/Q.gif" word="一个记录技术、阅读、生活的博客" >}}
+{{< friend name="K2ep's Blog" url="https://www.sulvblog.cn" logo="https://www.sulvblog.cn/img/Q.gif" word="一个记录技术、阅读、生活的博客" >}}
 
 
 </div>
@@ -34,7 +34,7 @@ showbreadcrumbs: false
 
 |        |                                   |
 | ------ | --------------------------------- |
-| 名称： | Sulv's Blog                       |
+| 名称： | K2ep2ah's Blog                    |
 | 网址： | https://www.sulvblog.cn           |
 | 图标： | https://www.sulvblog.cn/img/Q.gif |
 | 描述： | 一个记录技术、阅读、生活的博客    |

@@ -1,6 +1,6 @@
 baseURL: https://www.sulvblog.cn # 绑定的域名
 languageCode: zh-cn # en-us
-title: Sulv's Blog
+title: Pose1donz's Blog
 theme: hugo-PaperMod  # 主题名字，和themes文件夹下的一致
 
 enableInlineShortcodes: true
@@ -13,7 +13,7 @@ buildFuture: false
 buildExpired: false
 
 googleAnalytics:  # 谷歌统计
-# Copyright: Sulv
+# Copyright: Pose1donz
 
 paginate: 15    # 首页每页显示的文章数
 summaryLength: 140 # 文章概览的自字数，默认70
@@ -92,7 +92,7 @@ outputs:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   description: ""
-  author: Sulv
+  author: Pose1donz
   # author: ["Me", "You"] # multiple authors
 
   defaultTheme: auto  # defaultTheme: light or  dark
@@ -128,14 +128,14 @@ params:
     - name: WeChat
       url: "img/wechat.png"
     - name: bilibili
-      url: "https://space.bilibili.com/234461224"
+      url: "https://space.bilibili.com/301357508"
     - name: email
-      url: "mailto:1931559710@qq.com"
+      url: "mailto:1145700615@qq.com"
     - name: RSS
       url: "index.xml"
 
   label: # 左上角图标
-    text: "Sulv's Blog"
+    text: "Pose1donz's Blog"
     icon: "img/Q.gif"
     iconHeight: 35
 
@@ -230,4 +230,3 @@ services:
     disableInlineCSS: true
   twitter:
     disableInlineCSS: true
-        
