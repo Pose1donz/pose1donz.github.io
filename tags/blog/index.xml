@@ -6,7 +6,16 @@
     <description>Recent content in blog on Pose1donz&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 08 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pose1donz.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Nov 2022 21:15:51 +0800</lastBuildDate><atom:link href="https://pose1donz.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo个人博客的搭建</title>
+      <link>https://pose1donz.github.io/posts/blog/hugo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 08 Nov 2022 21:15:51 +0800</pubDate>
+      
+      <guid>https://pose1donz.github.io/posts/blog/hugo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/</guid>
+      <description>​ 首先安装hugo框架 详见Content Organization - Hugo中文文档 (gohugo.org) ​ 安装好hugo后你可以选择按照hugo的官方文档自己DIY网站的制作也可以再网上寻找别人已经制作好的hugo主题 笔者用的是第二种方法来构建自己的博客 主题链接为：[https://github.com/xyming10</description>
+    </item>
+    
     <item>
       <title>Blog</title>
       <link>https://pose1donz.github.io/posts/blog/blog/</link>

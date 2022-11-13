@@ -2,28 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://pose1donz.github.io/posts/tech/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
     <loc>https://pose1donz.github.io/posts/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
+    <loc>https://pose1donz.github.io/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
+    <loc>https://pose1donz.github.io/tags/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
+    <loc>https://pose1donz.github.io/tags/tech/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
+    <loc>https://pose1donz.github.io/posts/tech/%E7%AE%80%E5%8D%95%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2022-11-13T19:40:48+08:00</lastmod>
+  </url><url>
+    <loc>https://pose1donz.github.io/tags/blog/</loc>
     <lastmod>2022-11-08T21:15:51+08:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/posts/blog/hugo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2022-11-08T21:15:51+08:00</lastmod>
   </url><url>
-    <loc>https://pose1donz.github.io/</loc>
-    <lastmod>2022-11-08T21:15:51+08:00</lastmod>
-  </url><url>
     <loc>https://pose1donz.github.io/posts/blog/</loc>
     <lastmod>2022-11-08T21:15:51+08:00</lastmod>
-  </url><url>
-    <loc>https://pose1donz.github.io/posts/tech/</loc>
-    <lastmod>2022-11-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/posts/read/</loc>
     <lastmod>2022-11-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/about/</loc>
-    <lastmod>2022-11-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://pose1donz.github.io/tags/blog/</loc>
     <lastmod>2022-11-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/posts/blog/blog/</loc>
@@ -39,12 +48,6 @@
     <lastmod>2022-11-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/posts/read/read/</loc>
-    <lastmod>2022-11-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://pose1donz.github.io/tags/</loc>
-    <lastmod>2022-11-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://pose1donz.github.io/tags/tech/</loc>
     <lastmod>2022-11-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://pose1donz.github.io/posts/tech/tech/</loc>

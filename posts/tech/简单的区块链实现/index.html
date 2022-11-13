@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>简单的区块链实现 | Pose1donz&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="写在前面 为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。 实现要点 自定义类的存储的读取 引入python的pickle模块，它能够实现任意对象与文本之间的相">
+<meta name="author" content="
+作者:&nbsp;Pose1donz">
+<link rel="canonical" href="https://pose1donz.github.io/posts/tech/%E7%AE%80%E5%8D%95%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%9E%E7%8E%B0/">
+<link  href="/assets/css/stylesheet.6bbe4903eaf247f5c3db656a51fd7b09d982ab42029edfdc123f359e2748dc03.css"  rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+        onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://pose1donz.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://pose1donz.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://pose1donz.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://pose1donz.github.io/img/Q.jpg">
+<link rel="mask-icon" href="https://pose1donz.github.io/img/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = ""; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<meta property="og:title" content="简单的区块链实现" />
+<meta property="og:description" content="写在前面 为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。 实现要点 自定义类的存储的读取 引入python的pickle模块，它能够实现任意对象与文本之间的相" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pose1donz.github.io/posts/tech/%E7%AE%80%E5%8D%95%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%9E%E7%8E%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-13T19:40:48&#43;08:00" />
+<meta property="article:modified_time" content="2022-11-13T19:40:48&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="简单的区块链实现"/>
+<meta name="twitter:description" content="写在前面 为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。 实现要点 自定义类的存储的读取 引入python的pickle模块，它能够实现任意对象与文本之间的相"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "📚文章",
+      "item": "https://pose1donz.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "👨🏻‍💻 技术",
+      "item": "https://pose1donz.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "简单的区块链实现",
+      "item": "https://pose1donz.github.io/posts/tech/%E7%AE%80%E5%8D%95%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%9E%E7%8E%B0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "简单的区块链实现",
+  "name": "简单的区块链实现",
+  "description": "写在前面 为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。 实现要点 自定义类的存储的读取 引入python的pickle模块，它能够实现任意对象与文本之间的相",
+  "keywords": [
+    ""
+  ],
+  "articleBody": "写在前面 为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。\n实现要点 自定义类的存储的读取 引入python的pickle模块，它能够实现任意对象与文本之间的相互转化，也可以实现任意对象与二进制之间的相互转化。也就是说，pickle 可以实现 Python 对象的存储及恢复。\npickle主要用法\n读取：\nloads（）是反序列化，跟文件没关系\nwith open(\"blockchain.txt\", 'rb') as f://必须用二进制来存储，否则会报错 try://读到不能读 while (1): datablock = pickle.load(f)//读取一个存储的模块 nowindex += 1 except: pass 写入：\nwith open(\"blockchain.txt\", 'ab') as f: pickle.dump(block,f)//写入一个 dumps（）是序列化但不写入\nps：元组，字典也可以利用pickle序列化，其实类的序列号也是类似字典的形式存储，在文件中有一个结束符，所以每次load都会读取一个被序列化了的对象，把它重新转化为字典的形式。\n其次，pickle目前是不安全的，要谨慎使用，具体请google或参考下面的链接\n从零开始python反序列化攻击：pickle原理解析 \u0026 不用reduce的RCE姿势 - 知乎 (zhihu.com)\n区块链的实现 这一部分就不在这里嗦了，以后可能会单独写一篇~\npython的多线程 Python其实是没有真正的多线程的！\n为什么这么说，我们先明确一个概念，全局解释器锁（GIL）。 Python代码的执行由Python虚拟机（解释器）来控制。Python在设计之初就考虑要在主循环中，同时只有一个线程在执行，就像单CPU的系统中运行多个进程那样，内存中可以存放多个程序，但任意时刻，只有一个程序在CPU中运行。 同样地，虽然Python解释器可以运行多个线程，只有一个线程在解释器中运行。对Python虚拟机的访问由全局解释器锁（GIL）来控制，正是这个锁能保证同时只有一个线程在运行。\n在多线程环境中，Python虚拟机按照以下方式执行。\n1.设置GIL。\n2.切换到一个线程去执行。\n3.运行。\n4.把线程设置为睡眠状态。\n5.解锁GIL。\n6.再次重复以上步骤。\nPython不管你有几个核，单位时间多个核只能跑一个线程，然后时间片轮转。看起来很不可思议？但是这就是GIL搞的鬼。任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁， 让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。通常我们用的解释器是官方实现的CPython，要真正利用多核，除非重写一个不带GIL的解释器。\n所以在python中如果你想要好好的利用多核优势，你可以用c语言链接库编写程序，然后将.so链接库内容加载到python中。或者同时跑多个python程序，因为每个python程序都有自己的GIL锁（多进程）\n线程 import threading//引入模块 MUTEXALL = threading.Lock()//全局变量实例锁 MUTEXALL.acquire()//上锁 MUTEXALL.release()//下锁 源码 import hashlib # hash 算法 from time import time # 时间戳 import pickle import threading VERSION=\"1.0\" LEVEL=pow(2,256)-pow(2,244) MUTEXALL = threading.Lock() MAXBLOCKNUM=10 class Block:#没有实现Merkel根,因为灭有存储交易信息 \"\"\"创建了一个block类\"\"\" def __init__(self,index,data,prehash,nouce): \"\"\"初始化块的属性index，data，prehash，level，version，timeunix，nouce\"\"\" self.index=index self.data=data self.prehash=prehash self.level=LEVEL self.version=VERSION self.timeunix=int(time()) self.nouce=nouce def calhash(self): \"\"\"计算该区块的哈希值\"\"\" sec = hashlib.sha256() data = str(self.index)+str(self.data)+str(self.prehash)+str(self.level)+str(self.version)+str(self.timeunix)+str(self.nouce) sec.update(data.encode(\"utf-8\")) return sec.hexdigest() def testify(self): \"\"\"验证该区块的哈希是否满足现在的难度目标值\"\"\" return int(self.calhash(),16)\u003cLEVEL class Miner: \"\"\"创建了一个矿工对象\"\"\" def __init__(self,addr): self.addr=addr self.nowblockindex=0 def checkright(self): \"\"\"挖矿检验是否正确程序，为了区别不同矿工，nouce的更新方式有些许不同\"\"\" while 1: nowindex=0 MUTEXALL.acquire() with open(\"blockchain.txt\", 'rb') as f: try: while (1): datablock = pickle.load(f) nowindex+=1 except: pass MUTEXALL.release() if nowindex\u003cMAXBLOCKNUM: if nowindex!=self.nowblockindex: self.nowblockindex=nowindex self.nowblock=Block(self.nowblockindex,\"Im the \"+str(self.nowblockindex)+\" block!\",datablock.calhash(),0) else: if self.nowblock.testify(): nowindex=0 MUTEXALL.acquire() with open(\"blockchain.txt\", 'rb') as f: try: while (1): datablock = pickle.load(f) nowindex += 1 except: pass MUTEXALL.release() if nowindex==self.nowblockindex: MUTEXALL.acquire() writrblockchian(self.nowblock) MUTEXALL.release() print(\"NEW BLOCK HAS BEEN CREATED BY MINER \"+str(self.addr)+\" AND THE BLOCK \"+str(self.nowblock.index)+\" HASH IS \"+self.nowblock.calhash()) else: pass else: self.nowblock.nouce+=self.addr else: return 1 def writrblockchian(block): \"\"\"在blockchian.txt中追加写入区块\"\"\" with open(\"blockchain.txt\", 'ab') as f: pickle.dump(block,f) def createthefoundationblock(): \"\"\"创建创世区块\"\"\" tfb=Block(0,\"im the fa of the all block.\",2002077222020100225,20020722) writrblockchian(tfb) print(\"NEW FOUNDATION BLOCK HAS BEEN CREATED AND THE BLOCK HASH IS \" + tfb.calhash()) def showallblockintext(): \"\"\"打印所有在blockchain.txt里的block\"\"\" print(\"\\n\\n\") with open(\"blockchain.txt\", 'rb') as f: try: while (1): datablock = pickle.load(f) print(\"the block \" + str(datablock.index) + \" :\") print(\" data: \" + str(datablock.data)) print(\" timeunix: \" + str(datablock.timeunix)) print(\" prehash: \" + str(datablock.prehash)) print(\" version: \" + str(datablock.version)) print(\" level: \" + str(datablock.level)) print(\" nouce: \" + str(datablock.nouce)) print() except: pass createthefoundationblock() print(\"NOW EVEVY MINER IS WORKING!\") miner1=Miner(1) miner2=Miner(2) miner3=Miner(3) the1=threading.Thread(target=miner1.checkright,args=()) the2=threading.Thread(target=miner2.checkright,args=()) the3=threading.Thread(target=miner3.checkright,args=()) the3.start() the2.start() the1.start() the2.join() the1.join() the3.join() showallblockintext() ",
+  "wordCount" : "2055",
+  "inLanguage": "en",
+  "datePublished": "2022-11-13T19:40:48+08:00",
+  "dateModified": "2022-11-13T19:40:48+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "Pose1donz"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pose1donz.github.io/posts/tech/%E7%AE%80%E5%8D%95%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%9E%E7%8E%B0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pose1donz's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pose1donz.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://pose1donz.github.io" accesskey="h" title="Pose1donz&#39;s Blog (Alt + H)">
+            <img src="https://pose1donz.github.io/img/Q.jpg" alt="logo" aria-label="logo"
+                 height="35">Pose1donz&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://pose1donz.github.io/search" title="🔍 搜索 (Alt &#43; /)" accesskey=/>
+                <span>🔍 搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/" title="🏠 主页">
+                <span>🏠 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/posts" title="📚 文章">
+                <span>📚 文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/tags" title="🧩 标签">
+                <span>🧩 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/archives/" title="⏱ 时间轴">
+                <span>⏱ 时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/about" title="🙋🏻‍♂️ 关于">
+                <span>🙋🏻‍♂️ 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://pose1donz.github.io/links" title="🤝 友链">
+                <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+<article class="post-single">
+    <div id="single-content">
+        <header class="post-header">
+            <div class="breadcrumbs"><a href="https://pose1donz.github.io">主页</a>&nbsp;»&nbsp;<a href="https://pose1donz.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://pose1donz.github.io/posts/tech/">👨🏻‍💻 技术</a></div>
+            <h1 class="post-title">
+                简单的区块链实现
+            </h1>
+            <div class="post-meta">创建:&nbsp;<span title='2022-11-13 19:40:48 +0800 CST'>2022-11-13</span>&nbsp;|&nbsp;更新:&nbsp;2022-11-13&nbsp;|&nbsp;字数:&nbsp;2055字&nbsp;|&nbsp;时长:&nbsp;5分钟&nbsp;|&nbsp;
+作者:&nbsp;Pose1donz
+
+
+
+                &nbsp;|&nbsp;标签: &nbsp;
+                <ul class="post-tags-meta">
+                    <a href="https://pose1donz.github.io/tags/tech/">tech</a>
+                </ul>
+
+                
+                <span id="busuanzi_container_page_pv">
+                &nbsp;| 访问: <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+</div>
+        </header> 
+        <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">文章目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%86%99%e5%9c%a8%e5%89%8d%e9%9d%a2" aria-label="写在前面">写在前面</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e7%8e%b0%e8%a6%81%e7%82%b9" aria-label="实现要点">实现要点</a><ul>
+                        
+                <li>
+                    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e7%b1%bb%e7%9a%84%e5%ad%98%e5%82%a8%e7%9a%84%e8%af%bb%e5%8f%96" aria-label="自定义类的存储的读取">自定义类的存储的读取</a></li>
+                <li>
+                    <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e7%9a%84%e5%ae%9e%e7%8e%b0" aria-label="区块链的实现">区块链的实现</a></li>
+                <li>
+                    <a href="#python%e7%9a%84%e5%a4%9a%e7%ba%bf%e7%a8%8b" aria-label="python的多线程">python的多线程</a></li>
+                <li>
+                    <a href="#%e7%ba%bf%e7%a8%8b" aria-label="线程">线程</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%ba%90%e7%a0%81" aria-label="源码">源码</a>
+                </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+        
+        <div class="post-content"><h5 id="写在前面">写在前面<a hidden class="anchor" aria-hidden="true" href="#写在前面">#</a></h5>
+<p>为了完成作业，用python做了一个简单的区块链实现和多线程矿工挖矿模拟。老师要求的是用txt文件来存储区块的信息，在进行类的txt存储时对自定义类的存储和读取做了简单的了解。</p>
+<h5 id="实现要点">实现要点<a hidden class="anchor" aria-hidden="true" href="#实现要点">#</a></h5>
+<h6 id="自定义类的存储的读取">自定义类的存储的读取<a hidden class="anchor" aria-hidden="true" href="#自定义类的存储的读取">#</a></h6>
+<p>引入python的pickle模块，它能够实现任意对象与文本之间的相互转化，也可以实现任意对象与二进制之间的相互转化。也就是说，pickle 可以实现 Python 对象的存储及恢复。</p>
+<p>pickle主要用法</p>
+<p>读取：</p>
+<p>loads（）是反序列化，跟文件没关系</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> f:<span style="color:#f92672">//</span>必须用二进制来存储<span style="color:#960050;background-color:#1e0010">，</span>否则会报错
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:<span style="color:#f92672">//</span>读到不能读
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            datablock <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>load(f)<span style="color:#f92672">//</span>读取一个存储的模块
+</span></span><span style="display:flex;"><span>            nowindex <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p>写入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;ab&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    pickle<span style="color:#f92672">.</span>dump(block,f)<span style="color:#f92672">//</span>写入一个
+</span></span></code></pre></div><p>dumps（）是序列化但不写入</p>
+<p>ps：元组，字典也可以利用pickle序列化，其实类的序列号也是类似字典的形式存储，在文件中有一个结束符，所以每次load都会读取一个被序列化了的对象，把它重新转化为字典的形式。</p>
+<p>其次，pickle目前是不安全的，要谨慎使用，具体请google或参考下面的链接</p>
+<p><a href="https://zhuanlan.zhihu.com/p/89132768">从零开始python反序列化攻击：pickle原理解析 &amp; 不用reduce的RCE姿势 - 知乎 (zhihu.com)</a></p>
+<h6 id="区块链的实现">区块链的实现<a hidden class="anchor" aria-hidden="true" href="#区块链的实现">#</a></h6>
+<p>这一部分就不在这里嗦了，以后可能会单独写一篇~</p>
+<h6 id="python的多线程">python的多线程<a hidden class="anchor" aria-hidden="true" href="#python的多线程">#</a></h6>
+<p>Python其实是没有真正的多线程的！</p>
+<p>为什么这么说，我们先明确一个概念，全局解释器锁（GIL）。 Python代码的执行由Python虚拟机（解释器）来控制。Python在设计之初就考虑要在主循环中，同时只有一个线程在执行，就像单CPU的系统中运行多个进程那样，内存中可以存放多个程序，但任意时刻，只有一个程序在CPU中运行。 同样地，虽然Python解释器可以运行多个线程，只有一个线程在解释器中运行。对Python虚拟机的访问由全局解释器锁（GIL）来控制，正是这个锁能保证同时只有一个线程在运行。</p>
+<p>在多线程环境中，Python虚拟机按照以下方式执行。</p>
+<p>1.设置GIL。</p>
+<p>2.切换到一个线程去执行。</p>
+<p>3.运行。</p>
+<p>4.把线程设置为睡眠状态。</p>
+<p>5.解锁GIL。</p>
+<p>6.再次重复以上步骤。</p>
+<p>Python不管你有几个核，单位时间多个核只能跑一个线程，然后时间片轮转。看起来很不可思议？但是这就是GIL搞的鬼。任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁， 让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。通常我们用的解释器是官方实现的CPython，要真正利用多核，除非重写一个不带GIL的解释器。</p>
+<p>所以在python中如果你想要好好的利用多核优势，你可以用c语言链接库编写程序，然后将.so链接库内容加载到python中。或者同时跑多个python程序，因为每个python程序都有自己的GIL锁（多进程）</p>
+<h6 id="线程">线程<a hidden class="anchor" aria-hidden="true" href="#线程">#</a></h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> threading<span style="color:#f92672">//</span>引入模块
+</span></span><span style="display:flex;"><span>MUTEXALL <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Lock()<span style="color:#f92672">//</span>全局变量实例锁
+</span></span><span style="display:flex;"><span>MUTEXALL<span style="color:#f92672">.</span>acquire()<span style="color:#f92672">//</span>上锁
+</span></span><span style="display:flex;"><span>MUTEXALL<span style="color:#f92672">.</span>release()<span style="color:#f92672">//</span>下锁
+</span></span></code></pre></div><h5 id="源码">源码<a hidden class="anchor" aria-hidden="true" href="#源码">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib  <span style="color:#75715e"># hash 算法</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> time <span style="color:#75715e">#  时间戳</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pickle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> threading
+</span></span><span style="display:flex;"><span>VERSION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>
+</span></span><span style="display:flex;"><span>LEVEL<span style="color:#f92672">=</span>pow(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">256</span>)<span style="color:#f92672">-</span>pow(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">244</span>)
+</span></span><span style="display:flex;"><span>MUTEXALL <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Lock()
+</span></span><span style="display:flex;"><span>MAXBLOCKNUM<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Block</span>:<span style="color:#75715e">#没有实现Merkel根,因为灭有存储交易信息</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;创建了一个block类&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self,index,data,prehash,nouce):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;初始化块的属性index，data，prehash，level，version，timeunix，nouce&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>index<span style="color:#f92672">=</span>index
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data<span style="color:#f92672">=</span>data
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>prehash<span style="color:#f92672">=</span>prehash
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>level<span style="color:#f92672">=</span>LEVEL
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>version<span style="color:#f92672">=</span>VERSION
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>timeunix<span style="color:#f92672">=</span>int(time())
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>nouce<span style="color:#f92672">=</span>nouce
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calhash</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;计算该区块的哈希值&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        sec <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256()
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> str(self<span style="color:#f92672">.</span>index)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>data)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>prehash)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>level)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>version)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>timeunix)<span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>nouce)
+</span></span><span style="display:flex;"><span>        sec<span style="color:#f92672">.</span>update(data<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;utf-8&#34;</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sec<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">testify</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;验证该区块的哈希是否满足现在的难度目标值&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> int(self<span style="color:#f92672">.</span>calhash(),<span style="color:#ae81ff">16</span>)<span style="color:#f92672">&lt;</span>LEVEL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Miner</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;创建了一个矿工对象&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self,addr):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>addr<span style="color:#f92672">=</span>addr
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>nowblockindex<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">checkright</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;挖矿检验是否正确程序，为了区别不同矿工，nouce的更新方式有些许不同&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            nowindex<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            MUTEXALL<span style="color:#f92672">.</span>acquire()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                        datablock <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>                        nowindex<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>            MUTEXALL<span style="color:#f92672">.</span>release()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> nowindex<span style="color:#f92672">&lt;</span>MAXBLOCKNUM:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> nowindex<span style="color:#f92672">!=</span>self<span style="color:#f92672">.</span>nowblockindex:
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>nowblockindex<span style="color:#f92672">=</span>nowindex
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>nowblock<span style="color:#f92672">=</span>Block(self<span style="color:#f92672">.</span>nowblockindex,<span style="color:#e6db74">&#34;Im the &#34;</span><span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>nowblockindex)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; block!&#34;</span>,datablock<span style="color:#f92672">.</span>calhash(),<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>nowblock<span style="color:#f92672">.</span>testify():
+</span></span><span style="display:flex;"><span>                        nowindex<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                        MUTEXALL<span style="color:#f92672">.</span>acquire()
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                                    datablock <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>                                    nowindex <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>                        MUTEXALL<span style="color:#f92672">.</span>release()
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> nowindex<span style="color:#f92672">==</span>self<span style="color:#f92672">.</span>nowblockindex:
+</span></span><span style="display:flex;"><span>                            MUTEXALL<span style="color:#f92672">.</span>acquire()
+</span></span><span style="display:flex;"><span>                            writrblockchian(self<span style="color:#f92672">.</span>nowblock)
+</span></span><span style="display:flex;"><span>                            MUTEXALL<span style="color:#f92672">.</span>release()
+</span></span><span style="display:flex;"><span>                            print(<span style="color:#e6db74">&#34;NEW BLOCK HAS BEEN CREATED BY MINER &#34;</span><span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>addr)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; AND THE BLOCK &#34;</span><span style="color:#f92672">+</span>str(self<span style="color:#f92672">.</span>nowblock<span style="color:#f92672">.</span>index)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; HASH IS &#34;</span><span style="color:#f92672">+</span>self<span style="color:#f92672">.</span>nowblock<span style="color:#f92672">.</span>calhash())
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                        self<span style="color:#f92672">.</span>nowblock<span style="color:#f92672">.</span>nouce<span style="color:#f92672">+=</span>self<span style="color:#f92672">.</span>addr
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">writrblockchian</span>(block):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;在blockchian.txt中追加写入区块&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;ab&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        pickle<span style="color:#f92672">.</span>dump(block,f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">createthefoundationblock</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;创建创世区块&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    tfb<span style="color:#f92672">=</span>Block(<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;im the fa of the all block.&#34;</span>,<span style="color:#ae81ff">2002077222020100225</span>,<span style="color:#ae81ff">20020722</span>)
+</span></span><span style="display:flex;"><span>    writrblockchian(tfb)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;NEW FOUNDATION BLOCK HAS BEEN CREATED AND THE BLOCK HASH IS &#34;</span> <span style="color:#f92672">+</span> tfb<span style="color:#f92672">.</span>calhash())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">showallblockintext</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;打印所有在blockchain.txt里的block&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;blockchain.txt&#34;</span>, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                datablock <span style="color:#f92672">=</span> pickle<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;the block &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>index) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; :&#34;</span>)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  data: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>data))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  timeunix: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>timeunix))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  prehash: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>prehash))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  version: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>version))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  level: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>level))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;  nouce: &#34;</span> <span style="color:#f92672">+</span> str(datablock<span style="color:#f92672">.</span>nouce))
+</span></span><span style="display:flex;"><span>                print()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>createthefoundationblock()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;NOW EVEVY MINER IS WORKING!&#34;</span>)
+</span></span><span style="display:flex;"><span>miner1<span style="color:#f92672">=</span>Miner(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>miner2<span style="color:#f92672">=</span>Miner(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>miner3<span style="color:#f92672">=</span>Miner(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>the1<span style="color:#f92672">=</span>threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>miner1<span style="color:#f92672">.</span>checkright,args<span style="color:#f92672">=</span>())
+</span></span><span style="display:flex;"><span>the2<span style="color:#f92672">=</span>threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>miner2<span style="color:#f92672">.</span>checkright,args<span style="color:#f92672">=</span>())
+</span></span><span style="display:flex;"><span>the3<span style="color:#f92672">=</span>threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>miner3<span style="color:#f92672">.</span>checkright,args<span style="color:#f92672">=</span>())
+</span></span><span style="display:flex;"><span>the3<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>the2<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>the1<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>the2<span style="color:#f92672">.</span>join()
+</span></span><span style="display:flex;"><span>the1<span style="color:#f92672">.</span>join()
+</span></span><span style="display:flex;"><span>the3<span style="color:#f92672">.</span>join()
+</span></span><span style="display:flex;"><span>showallblockintext()
+</span></span></code></pre></div>
+
+        </div>
+        <div class="post-reward">
+            <div style="padding: 0 0 0 0; margin: 0 0 0 0; width: 100%; font-size:16px; text-align: center;">
+                <div id="QR" style="opacity: 0;">
+                    <div id="wechat" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="wechat_qr" src="https://pose1donz.github.io/img/wechat_pay.png" alt="wechat_pay"></a>
+                        <p>微信</p>
+                    </div>
+                    <div id="alipay" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="alipay_qr" src="https://pose1donz.github.io/img/alipay.png" alt="alipay"></a>
+                        <p>支付宝</p>
+                    </div>
+                </div>
+                <button id="rewardButton"
+                        onclick="
+                    var qr = document.getElementById('QR');
+                    if (qr.style.opacity === '0') {
+                        qr.style.opacity='1';
+                    } else {
+                        qr.style.opacity='0'
+                    }"
+                >
+                    <span>🧧 鼓励</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="post-footer">
+            
+<nav class="paginav">
+  <a class="next" href="https://pose1donz.github.io/posts/blog/hugo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>Hugo个人博客的搭建</span>
+  </a>
+</nav>
+
+        </footer>
+    </div>
+
+
+
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+
+    <div id="tcomment"></div>
+
+    <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js">
+    </script>
+    
+
+    
+
+    <script>
+        twikoo.init({
+            envId:  null , 
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region:  null ,
+            path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+
+</div>
+</article>
+</main>
+
+
+<script async src="https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js"></script>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<footer class="footer">
+    <span>
+        Copyright
+        &copy;
+        2022-2022
+        <a href="https://pose1donz.github.io" style="color:#939393;">Pose1donz&#39;s Blog</a>
+        All Rights Reserved
+    </span>
+
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#939393;"></a>&nbsp;
+
+    <span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=null"
+           style="display:inline-block;text-decoration:none;height:20px;color:#939393;">
+            <img src="" style="float:left;margin: 0px 5px 0px 0px;"/>
+            
+        </a>
+    </span>
+
+    <span id="busuanzi_container">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        总访客数: <span id="busuanzi_value_site_uv"></span>
+        总访问量: <span id="busuanzi_value_site_pv"></span>
+    </span>
+
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z"/>
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+
+<script>
+    document.addEventListener('scroll', function (e) {
+        const readProgress = document.getElementById("read_progress");
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        
+        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
+    })
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    let mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+<script>
+    document.body.addEventListener('copy', function (e) {
+        if (window.getSelection().toString() && window.getSelection().toString().length > 50) {
+            let clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData) {
+                e.preventDefault();
+                let htmlData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「' + {
+                { .
+                    Site.Title
+                }
+            }
+                +'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                let textData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「' + {
+                { .
+                    Site.Title
+                }
+            }
+                +'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                clipboardData.setData('text/html', htmlData);
+                clipboardData.setData('text/plain', textData);
+            }
+        }
+    });
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '📄复制';
+
+        function copyingDone() {
+            copybutton.innerText = '👌🏻已复制!';
+            setTimeout(() => {
+                copybutton.innerText = '📄复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                let text = codeblock.textContent +
+                    '\r\n————————————————\r\n' +
+                    '版权声明：本文为「' + "Pose1donz's Blog"
+                +'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                navigator.clipboard.writeText(text);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) {
+            }
+            ;
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild === container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
